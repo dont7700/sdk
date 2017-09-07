@@ -40,7 +40,7 @@ public:
     virtual void join();
     virtual ~QtThread();
 
-    static unsigned long long currentThreadId();
+    static uint64_t currentThreadId();
 
 protected:
     virtual void run();

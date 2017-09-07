@@ -35,12 +35,11 @@ const int Sync::SCANNING_DELAY_DS = 5;
 // new Syncs are automatically inserted into the session's syncs list
 // and a full read of the subtree is initiated
 Sync::Sync(MegaClient* cclient, string* crootpath, const char* cdebris,
-           string* clocaldebris, Node* remotenode, fsfp_t cfsfp, bool cinshare, int ctag, void *cappdata)
+           string* clocaldebris, Node* remotenode, fsfp_t cfsfp, bool cinshare, int ctag)
 {
     client = cclient;
     tag = ctag;
     inshare = cinshare;
-    appData = cappdata;
     errorcode = API_OK;
     tmpfa = NULL;
     initializing = true;
@@ -437,16 +436,16 @@ bool Sync::scan(string* localpath, FileAccess* fa)
                 name = localname;
                 client->fsaccess->local2name(&name);
 
-                if (t)
-                {
-                    localpath->append(client->fsaccess->localseparator);
-                }
-
-                localpath->append(localname);
-
                 // check if this record is to be ignored
-                if (client->app->sync_syncable(this, name.c_str(), localpath))
+                if (client->app->sync_syncable(name.c_str(), localpath, &localname))
                 {
+                    if (t)
+                    {
+                        localpath->append(client->fsaccess->localseparator);
+                    }
+
+                    localpath->append(localname);
+
                     // skip the sync's debris folder
                     if (localpath->size() < localdebris.size()
                      || memcmp(localpath->data(), localdebris.data(), localdebris.size())
@@ -468,13 +467,13 @@ bool Sync::scan(string* localpath, FileAccess* fa)
                             dirnotify->notify(DirNotify::DIREVENTS, NULL, localpath->data(), localpath->size(), true);
                         }
                     }
+
+                    localpath->resize(t);
                 }
                 else
                 {
                     LOG_debug << "Excluded: " << name;
                 }
-
-                localpath->resize(t);
             }
         }
 
@@ -564,10 +563,10 @@ LocalNode* Sync::checkpath(LocalNode* l, string* localpath, string* localname)
             return NULL;
         }
 
-        string name = newname.size() ? newname : l->name;
+        string name = newname;
         client->fsaccess->local2name(&name);
 
-        if (!client->app->sync_syncable(this, name.c_str(), &tmppath))
+        if (!client->app->sync_syncable(name.c_str(), &tmppath, &newname))
         {
             LOG_debug << "Excluded: " << path;
             return NULL;

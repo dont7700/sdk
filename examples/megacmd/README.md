@@ -6,16 +6,17 @@ functionality with your MEGA account via commands.
 Available packages for MEGAcmd in all supported platforms should be found 
 [here](https://mega.nz/cmd). 
 
-It supports 2 modes of interaction: 
+It features 2 modes of interaction: 
 
 - interactive. A shell to query your actions
 - scriptable. A way to execute commands from a shell/a script/another program.
 
-In order to provide those 2 modes, it features one server (**MEGAcmdServer**),
-an interactive shell (**MEGAcmdShell**) and several commands that will
-launch the non-interactive client (**MEGAcmdClient**). See [`Usage`](#usage) and [`Platform`](#platforms)
-to understand how to use it in your particular system.
-
+In order to provide those 2 modes, it features one main application 
+and several client commands.
+For using the interactive mode you will need to launch the main application 
+and start writting your commands there. Also, besides this interactive mode, 
+this application will act as a server. That is, it will be listening to petitions,
+from the client commands. 
 
 # Building MEGAcmd
 If you wish to build MEGAcmd using this repository, here are a list of 
@@ -59,16 +60,10 @@ restarting your computer will restore your previous session (the same as megasyn
 won't ask for user/password once you restart your computer). 
 You will need to `logout` properly in order to clean your data.
 
-Now let's get into details of the two usage modes. Both modes require that
-MEGAcmdServer is running. You can manually launch it. Fortunately, you can also
-open the interactive shell or execute any command and the server will start
-automatically.
-
 ### Interactively:
 
-Execute MEGAcmd shell. [`Platform`](#platforms) section explains how to do that in the different 
-supported systems.
-You should be facing an interactive shell where you can start typing your commands, 
+Execute MEGAcmd server.
+This opens an interactive shell. You can enter your commands here, 
 with their arguments and flags.
 You can list all the available commands with `help`. 
 And obtain useful information about a command with `command --help`
@@ -80,37 +75,29 @@ and clean any traces (see `logout --help` for further info).
 
 ### Non-interactively:
 
-When MEGAcmd server is running, it will be listening for client commands.
+Have MEGAcmd server running. It will be listening for client commands.
 Use the different `mega-*` commands available.
-`mega-help` will list all these commands (you will need to prepend "mega-" to 
-the commands listed there). To obtain further info use `mega-command --help`
+`mega-help` will list all these commands (you will need to prepend "mega-").
+You can obtain further info with `mega-command --help`
 
 Those commands will have an output value != 0 in case of failure. 
 See [megacmd.h](megacmd.h) to view the existing error codes.
 
 Ideally, you would like to have these commands in your PATH 
-(See [`Platform`](#platforms) for more info). For further info use `mega-help --non-interactive`.
+(See `Platforms` for more info).
 
-# Platforms
+#Platforms
 
 ## Linux
-If you have installed MEGAcmd using one of the available packages at [here](https://mega.nz/cmd), 
-or have it built without `--prefix`, both the server (`mega-cmd-server`),
-the shell (`mega-cmd`) and the different client commands (`mega-*`) will be in your PATH 
-(on a fresh install, you might need to open your terminal again). 
-If you are using bash, you should also have autocompletion for client commands working. 
+If you install using one of the available packages at [here](https://mega.nz/cmd), 
+or have it built without `--prefix`, both the server (`mega-cmd`) and 
+the different client commands (`mega-*`) will be in your PATH 
+(you might need to open your shell again). If you are using bash, 
+you should also have autocompletion for client commands working. 
 If that is not you case, include the location for the binaries in your path.
 
 ## Windows
-Once you have MEGAcmd installed, you just need to execute the main executable to open the shell. 
-This shall open a second window with MEGAcmdServer. Notice that this window will start minimized.
-For a better user experience (specially in WINDOWS 7) we recommend executing MEGAcmd from PowerShell:
-Open PowerShell and execute:
-```
-$env:PATH += ";$env:LOCALAPPDATA\MEGAcmd"
-MEGAcmdShell
-```
-
+Once you have MEGAcmd installed, you just need to execute it to open the shell. 
 For non-interactive usage, there are several `mega-*.bat`  client commands you can 
 use writting their absolute paths, or including their location into your environment PATH
  and execute them normally (`mega-*`).
@@ -123,11 +110,10 @@ $env:PATH += ";$env:LOCALAPPDATA\MEGAcmd"
 
 Client commands completion requires bash, hence, it is not available for Windows.
 
-### Caveats
-Although there have been several efforts in having non-ASCII unicode characters supported 
-in Windows, there still may be some issues. Pay special attention if you are willing to use pipes or 
-send the output of a command into a file from your client commands. See `help --unicode`
-for further info regarding that.
+### Security caveats
+For the current Windows version of MEGAcmd, the server will be 
+using network sockets for attending client commands. This socket is open for 
+petitions on localhost, hence, you should not use it in a multiuser environment.
 
 ## MacOS 
 For MacOS, after installing the dmg, you can launch the server using MEGAcmd
@@ -144,7 +130,7 @@ And for bash completion, source `megacmd_completion.sh` :
 source /Applications/MEGAcmd.app/Contents/MacOS/megacmd_completion.sh
 ```
 
-# Features:
+#Features:
 
 ## Autocompletion:
 
@@ -164,10 +150,9 @@ for a more verbose output) will use higher level of verbosity to an specific com
 
 ## Regular Expressions
 If you have compiled MEGAcmd with PCRE (enabled by default), 
-you can use PCRE compatible expressions in certain commands with the flag `--use-pcre`.
- Otherwise, if compiled with c++11, c++11 regular expressions will be used. 
- If non of the above is the case, you can only use wildcards: "*" for any number 
- of characters or "?" for a single unknown character.
+you can use PCRE compatible expressions. Otherwise, if compiled with c++11, 
+c++11 regular expressions will be used. If non of the above is the case, 
+you can only use "*" for any number of characters or "?" for a single unknown character.
 You can check the regular expressions compatibility with `find --help`. e.g:
 ```
 find --help
@@ -195,5 +180,5 @@ refers to `/` as root path.
 [err: 12:21:51] Couldn't find /toshare/x
 ```
 
-It might better be referred as /toshare/x
+It might better be refered as /toshare/x
 

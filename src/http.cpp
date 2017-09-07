@@ -22,8 +22,6 @@
 #include "mega/http.h"
 #include "mega/megaclient.h"
 #include "mega/logging.h"
-#include "mega/proxy.h"
-#include "mega/base64.h"
 
 #if defined(__APPLE__) && !(TARGET_OS_IPHONE)
 #include "mega/osx/osxutils.h"

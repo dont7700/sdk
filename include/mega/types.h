@@ -93,7 +93,6 @@ struct Waiter;
 struct Proxy;
 struct PendingContactRequest;
 class TransferList;
-struct Achievement;
 
 #define EOO 0
 
@@ -163,8 +162,7 @@ typedef enum ErrorCodes
     API_EREAD = -21,                /**< File could not be read from (or changed
                                          unexpectedly during reading). */
     API_EAPPKEY = -22,              ///< Invalid or missing application key.
-    API_ESSL = -23,                 ///< SSL verification failed
-    API_EGOINGOVERQUOTA = -24       ///< Not enough quota
+    API_ESSL = -23                  ///< SSL verification failed
 } error;
 
 // returned by loggedin()
@@ -470,9 +468,6 @@ typedef map<handle, TextChat*> textchat_map;
 typedef enum { RECOVER_WITH_MASTERKEY = 9, RECOVER_WITHOUT_MASTERKEY = 10, CANCEL_ACCOUNT = 21, CHANGE_EMAIL = 12 } recovery_t;
 
 typedef enum { EMAIL_REMOVED = 0, EMAIL_PENDING_REMOVED = 1, EMAIL_PENDING_ADDED = 2, EMAIL_FULLY_ACCEPTED = 3 } emailstatus_t;
-
-typedef unsigned int achievement_class_id;
-typedef map<achievement_class_id, Achievement> achievements_map;
 
 } // namespace
 

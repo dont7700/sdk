@@ -23,34 +23,25 @@
 #define MEGACMDLOGGER_H
 
 #include "megacmd.h"
-#include "comunicationsmanager.h"
 
 #define OUTSTREAM getCurrentOut()
 
-OUTSTREAMTYPE &getCurrentOut();
+std::ostream &getCurrentOut();
 bool interactiveThread();
-void setCurrentThreadOutStream(OUTSTREAMTYPE *);
+void setCurrentThreadOutStream(std::ostream *);
 int getCurrentOutCode();
 void setCurrentOutCode(int);
 int getCurrentThreadLogLevel();
 void setCurrentThreadLogLevel(int);
-
-CmdPetition * getCurrentPetition();
-void setCurrentPetition(CmdPetition *petition);
-
-
-void setCurrentThreadIsCmdShell(bool isit);
-bool getCurrentThreadIsCmdShell();
-
 
 class MegaCMDLogger : public mega::MegaLogger
 {
 private:
     int apiLoggerLevel;
     int cmdLoggerLevel;
-    OUTSTREAMTYPE * output;
+    std::ostream * output;
 public:
-    MegaCMDLogger(OUTSTREAMTYPE * outstr)
+    MegaCMDLogger(std::ostream * outstr)
     {
         this->output = outstr;
         this->apiLoggerLevel = mega::MegaApi::LOG_LEVEL_ERROR;

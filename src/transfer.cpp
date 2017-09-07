@@ -25,8 +25,6 @@
 #include "mega/megaapp.h"
 #include "mega/sync.h"
 #include "mega/logging.h"
-#include "mega/base64.h"
-#include "megawaiter.h"
 
 namespace mega {
 Transfer::Transfer(MegaClient* cclient, direction_t ctype)
@@ -537,8 +535,8 @@ void Transfer::complete()
                         nodes.insert(n->nodehandle);
 
                         // check for missing imagery
-                        if (!n->hasfileattribute(GfxProc::THUMBNAIL)) missingattr |= 1 << GfxProc::THUMBNAIL;
-                        if (!n->hasfileattribute(GfxProc::PREVIEW)) missingattr |= 1 << GfxProc::PREVIEW;
+                        if (!n->hasfileattribute(GfxProc::THUMBNAIL120X120)) missingattr |= 1 << GfxProc::THUMBNAIL120X120;
+                        if (!n->hasfileattribute(GfxProc::PREVIEW1000x1000)) missingattr |= 1 << GfxProc::PREVIEW1000x1000;
 
                         if (missingattr)
                         {

@@ -2,7 +2,7 @@ Name:		megacmd
 Version:	megacmd_VERSION
 Release:	1%{?dist}
 Summary:	MEGA Command Line Interactive and Scriptable Application
-License:	https://github.com/meganz/sdk/blob/megacmd/LICENSE
+License:	Freeware
 Group:		Applications/Others
 Url:		https://mega.nz
 Source0:	megacmd_%{version}.tar.gz
@@ -99,7 +99,6 @@ make
 for i in examples/megacmd/client/mega-*; do install -D $i %{buildroot}%{_bindir}/${i/examples\/megacmd\/client\//}; done
 install -D examples/megacmd/client/megacmd_completion.sh %{buildroot}%{_sysconfdir}/bash_completion.d/megacmd_completion.sh
 install -D examples/mega-cmd %{buildroot}%{_bindir}/mega-cmd
-install -D examples/mega-cmd-server %{buildroot}%{_bindir}/mega-cmd-server
 install -D examples/mega-exec %{buildroot}%{_bindir}/mega-exec
 
 
@@ -112,7 +111,7 @@ YUM_FILE="/etc/yum.repos.d/megasync.repo"
 cat > "$YUM_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
-baseurl=https://mega.nz/linux/MEGAsync/RHEL_7/
+baseurl=http://mega.nz/linux/MEGAsync/RHEL_7/
 gpgkey=https://mega.nz/linux/MEGAsync/RHEL_7/repodata/repomd.xml.key
 gpgcheck=1
 enabled=1
@@ -125,7 +124,7 @@ YUM_FILE="/etc/yum.repos.d/megasync.repo"
 cat > "$YUM_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
-baseurl=https://mega.nz/linux/MEGAsync/ScientificLinux_7/
+baseurl=http://mega.nz/linux/MEGAsync/ScientificLinux_7/
 gpgkey=https://mega.nz/linux/MEGAsync/ScientificLinux_7/repodata/repomd.xml.key
 gpgcheck=1
 enabled=1
@@ -138,7 +137,7 @@ YUM_FILE="/etc/yum.repos.d/megasync.repo"
 cat > "$YUM_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
-baseurl=https://mega.nz/linux/MEGAsync/CentOS_7/
+baseurl=http://mega.nz/linux/MEGAsync/CentOS_7/
 gpgkey=https://mega.nz/linux/MEGAsync/CentOS_7/repodata/repomd.xml.key
 gpgcheck=1
 enabled=1
@@ -165,7 +164,7 @@ YUM_FILE="/etc/yum.repos.d/megasync.repo"
 cat > "$YUM_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
-baseurl=https://mega.nz/linux/MEGAsync/Fedora_25/
+baseurl=http://mega.nz/linux/MEGAsync/Fedora_25/
 gpgkey=https://mega.nz/linux/MEGAsync/Fedora_25/repodata/repomd.xml.key
 gpgcheck=1
 enabled=1
@@ -178,7 +177,7 @@ YUM_FILE="/etc/yum.repos.d/megasync.repo"
 cat > "$YUM_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
-baseurl=https://mega.nz/linux/MEGAsync/Fedora_24/
+baseurl=http://mega.nz/linux/MEGAsync/Fedora_24/
 gpgkey=https://mega.nz/linux/MEGAsync/Fedora_24/repodata/repomd.xml.key
 gpgcheck=1
 enabled=1
@@ -191,7 +190,7 @@ YUM_FILE="/etc/yum.repos.d/megasync.repo"
 cat > "$YUM_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
-baseurl=https://mega.nz/linux/MEGAsync/Fedora_23/
+baseurl=http://mega.nz/linux/MEGAsync/Fedora_23/
 gpgkey=https://mega.nz/linux/MEGAsync/Fedora_23/repodata/repomd.xml.key
 gpgcheck=1
 enabled=1
@@ -204,7 +203,7 @@ YUM_FILE="/etc/yum.repos.d/megasync.repo"
 cat > "$YUM_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
-baseurl=https://mega.nz/linux/MEGAsync/Fedora_22/
+baseurl=http://mega.nz/linux/MEGAsync/Fedora_22/
 gpgkey=https://mega.nz/linux/MEGAsync/Fedora_22/repodata/repomd.xml.key
 gpgcheck=1
 enabled=1
@@ -217,7 +216,7 @@ YUM_FILE="/etc/yum.repos.d/megasync.repo"
 cat > "$YUM_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
-baseurl=https://mega.nz/linux/MEGAsync/Fedora_21/
+baseurl=http://mega.nz/linux/MEGAsync/Fedora_21/
 gpgkey=https://mega.nz/linux/MEGAsync/Fedora_21/repodata/repomd.xml.key
 gpgcheck=1
 enabled=1
@@ -230,7 +229,7 @@ YUM_FILE="/etc/yum.repos.d/megasync.repo"
 cat > "$YUM_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
-baseurl=https://mega.nz/linux/MEGAsync/Fedora_20/
+baseurl=http://mega.nz/linux/MEGAsync/Fedora_20/
 gpgkey=https://mega.nz/linux/MEGAsync/Fedora_20/repodata/repomd.xml.key
 gpgcheck=1
 enabled=1
@@ -243,28 +242,11 @@ YUM_FILE="/etc/yum.repos.d/megasync.repo"
 cat > "$YUM_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
-baseurl=https://mega.nz/linux/MEGAsync/Fedora_19
+baseurl=http://mega.nz/linux/MEGAsync/Fedora_19
 gpgkey=https://mega.nz/linux/MEGAsync/Fedora_19/repodata/repomd.xml.key
 gpgcheck=1
 enabled=1
 DATA
-%endif
-
-%if 0%{?sle_version} == 120300
-# openSUSE Leap 42.3
-if [ -d "/etc/zypp/repos.d/" ]; then
-ZYPP_FILE="/etc/zypp/repos.d/megasync.repo"
-cat > "$ZYPP_FILE" << DATA
-[MEGAsync]
-name=MEGAsync
-type=rpm-md
-baseurl=http://mega.nz/linux/MEGAsync/openSUSE_Leap_42.3/
-gpgcheck=1
-autorefresh=1
-gpgkey=http://mega.nz/linux/MEGAsync/openSUSE_Leap_42.3/repodata/repomd.xml.key
-enabled=1
-DATA
-fi
 %endif
 
 %if 0%{?sle_version} == 120200
@@ -275,10 +257,10 @@ cat > "$ZYPP_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
 type=rpm-md
-baseurl=https://mega.nz/linux/MEGAsync/openSUSE_Leap_42.2/
+baseurl=http://mega.nz/linux/MEGAsync/openSUSE_Leap_42.2/
 gpgcheck=1
 autorefresh=1
-gpgkey=https://mega.nz/linux/MEGAsync/openSUSE_Leap_42.2/repodata/repomd.xml.key
+gpgkey=http://mega.nz/linux/MEGAsync/openSUSE_Leap_42.2/repodata/repomd.xml.key
 enabled=1
 DATA
 fi
@@ -293,10 +275,10 @@ cat > "$ZYPP_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
 type=rpm-md
-baseurl=https://mega.nz/linux/MEGAsync/openSUSE_Leap_42.1/
+baseurl=http://mega.nz/linux/MEGAsync/openSUSE_Leap_42.1/
 gpgcheck=1
 autorefresh=1
-gpgkey=https://mega.nz/linux/MEGAsync/openSUSE_Leap_42.1/repodata/repomd.xml.key
+gpgkey=http://mega.nz/linux/MEGAsync/openSUSE_Leap_42.1/repodata/repomd.xml.key
 enabled=1
 DATA
 fi
@@ -311,10 +293,10 @@ cat > "$ZYPP_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
 type=rpm-md
-baseurl=https://mega.nz/linux/MEGAsync/openSUSE_Tumbleweed/
+baseurl=http://mega.nz/linux/MEGAsync/openSUSE_Tumbleweed/
 gpgcheck=1
 autorefresh=1
-gpgkey=https://mega.nz/linux/MEGAsync/openSUSE_Tumbleweed/repodata/repomd.xml.key
+gpgkey=http://mega.nz/linux/MEGAsync/openSUSE_Tumbleweed/repodata/repomd.xml.key
 enabled=1
 DATA
 fi
@@ -328,10 +310,10 @@ cat > "$ZYPP_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
 type=rpm-md
-baseurl=https://mega.nz/linux/MEGAsync/openSUSE_13.2/
+baseurl=http://mega.nz/linux/MEGAsync/openSUSE_13.2/
 gpgcheck=1
 autorefresh=1
-gpgkey=https://mega.nz/linux/MEGAsync/openSUSE_13.2/repodata/repomd.xml.key
+gpgkey=http://mega.nz/linux/MEGAsync/openSUSE_13.2/repodata/repomd.xml.key
 enabled=1
 DATA
 fi
@@ -345,10 +327,10 @@ cat > "$ZYPP_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
 type=rpm-md
-baseurl=https://mega.nz/linux/MEGAsync/openSUSE_13.1/
+baseurl=http://mega.nz/linux/MEGAsync/openSUSE_13.1/
 gpgcheck=1
 autorefresh=1
-gpgkey=https://mega.nz/linux/MEGAsync/openSUSE_13.1/repodata/repomd.xml.key
+gpgkey=http://mega.nz/linux/MEGAsync/openSUSE_13.1/repodata/repomd.xml.key
 enabled=1
 DATA
 fi
@@ -362,10 +344,10 @@ cat > "$ZYPP_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
 type=rpm-md
-baseurl=https://mega.nz/linux/MEGAsync/openSUSE_12.3/
+baseurl=http://mega.nz/linux/MEGAsync/openSUSE_12.3/
 gpgcheck=1
 autorefresh=1
-gpgkey=https://mega.nz/linux/MEGAsync/openSUSE_12.3/repodata/repomd.xml.key
+gpgkey=http://mega.nz/linux/MEGAsync/openSUSE_12.3/repodata/repomd.xml.key
 enabled=1
 DATA
 fi
@@ -379,10 +361,10 @@ cat > "$ZYPP_FILE" << DATA
 [MEGAsync]
 name=MEGAsync
 type=rpm-md
-baseurl=https://mega.nz/linux/MEGAsync/openSUSE_12.2/
+baseurl=http://mega.nz/linux/MEGAsync/openSUSE_12.2/
 gpgcheck=1
 autorefresh=1
-gpgkey=https://mega.nz/linux/MEGAsync/openSUSE_12.2/repodata/repomd.xml.key
+gpgkey=http://mega.nz/linux/MEGAsync/openSUSE_12.2/repodata/repomd.xml.key
 enabled=1
 DATA
 fi
@@ -442,7 +424,6 @@ fi
 
 %postun
 killall mega-cmd 2> /dev/null || true
-killall mega-cmd-server 2> /dev/null || true
 
 %clean
 %{?buildroot:%__rm -rf "%{buildroot}"}
@@ -460,8 +441,7 @@ killall mega-cmd-server 2> /dev/null || true
 %{_bindir}/mega-find
 %{_bindir}/mega-get
 %{_bindir}/mega-help
-%{_bindir}/mega-https
-%{_bindir}/mega-transfers
+%{_bindir}/mega-history
 %{_bindir}/mega-import
 %{_bindir}/mega-invite
 %{_bindir}/mega-ipc
@@ -494,7 +474,6 @@ killall mega-cmd-server 2> /dev/null || true
 %{_bindir}/mega-version
 %{_bindir}/mega-whoami
 %{_bindir}/mega-cmd
-%{_bindir}/mega-cmd-server
 %{_sysconfdir}/bash_completion.d/megacmd_completion.sh
 
 %changelog

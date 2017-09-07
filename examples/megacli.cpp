@@ -139,8 +139,6 @@ const char* errorstring(error e)
             return "Read error";
         case API_EAPPKEY:
             return "Invalid application key";
-        case API_EGOINGOVERQUOTA:
-            return "Not enough quota";
         default:
             return "Unknown error";
     }
@@ -431,13 +429,13 @@ static bool is_syncable(const char* name)
 }
 
 // determines whether remote node should be synced
-bool DemoApp::sync_syncable(Sync *, const char *, string *, Node *n)
+bool DemoApp::sync_syncable(Node* n)
 {
     return is_syncable(n->displayname());
 }
 
 // determines whether local file should be synced
-bool DemoApp::sync_syncable(Sync *, const char *name, string *)
+bool DemoApp::sync_syncable(const char* name, string* localpath, string* localname)
 {
     return is_syncable(name);
 }
@@ -2028,7 +2026,6 @@ static void process_line(char* l)
                 cout << "      symlink" << endl;
                 cout << "      version" << endl;
                 cout << "      debug" << endl;
-                cout << "      test" << endl;
 #ifdef ENABLE_CHAT
                 cout << "      chatc group [email ro|sta|mod]*" << endl;
                 cout << "      chati chatid email ro|sta|mod" << endl;
@@ -2761,10 +2758,6 @@ static void process_line(char* l)
                         return;
                     }
 #endif
-                    else if (words[0] == "test")
-                    {
-                        return;
-                    }
                     break;
 
                 case 5:
@@ -4784,12 +4777,6 @@ void DemoApp::checkout_result(error)
 void DemoApp::checkout_result(const char*)
 {
     // FIXME: implement
-}
-
-void DemoApp::getmegaachievements_result(AchievementsDetails *details, error e)
-{
-    // FIXME: implement display of values
-    delete details;
 }
 
 // display account details/history

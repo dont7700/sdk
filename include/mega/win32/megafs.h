@@ -40,10 +40,11 @@ public:
     virtual ~WinDirAccess();
 };
 
-struct MEGA_API WinDirNotify;
 class MEGA_API WinFileSystemAccess : public FileSystemAccess
 {
 public:
+    unsigned pendingevents;
+
     FileAccess* newfileaccess();
     DirAccess* newdiraccess();
     DirNotify* newdirnotify(string*, string*);
@@ -71,7 +72,6 @@ public:
     bool expanselocalpath(string *path, string *absolutepath);
 
     void addevents(Waiter*, int);
-    int checkevents(Waiter*);
 
     static bool istransient(DWORD);
     bool istransientorexists(DWORD);
@@ -82,9 +82,6 @@ public:
     static void emptydirlocal(string*, dev_t = 0);
 
     WinFileSystemAccess();
-    ~WinFileSystemAccess();
-
-    std::set<WinDirNotify*> dirnotifys;
 };
 
 struct MEGA_API WinDirNotify : public DirNotify
@@ -94,14 +91,16 @@ struct MEGA_API WinDirNotify : public DirNotify
     LocalNode* localrootnode;
 
     HANDLE hDirectory;
-    HANDLE hEvent;
 
     bool enabled;
+    bool exit;
     int active;
     string notifybuf[2];
 
     DWORD dwBytes;
     OVERLAPPED overlapped;
+
+    static VOID CALLBACK completion(DWORD, DWORD, LPOVERLAPPED);
 
     void addnotify(LocalNode*, string*);
 

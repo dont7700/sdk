@@ -197,7 +197,6 @@ public:
     // splitted implementation of wait() for a better thread management
     int preparewait();
     int dowait();
-    int checkevents();
 
     // abort exponential backoff
     bool abortbackoff(bool = true);
@@ -259,14 +258,6 @@ public:
 
     // open exported file link
     error openfilelink(const char*, int);
-
-    // decrypt password-protected public link
-    // the caller takes the ownership of the returned value in decryptedLink parameter
-    error decryptlink(const char* link, const char* pwd, string *decryptedLink);
-
-    // encrypt public link with password
-    // the caller takes the ownership of the returned value
-    error encryptlink(const char* link, const char* pwd, string *encryptedLink);
 
     // change login password
     error changepw(const byte*, const byte*);
@@ -396,8 +387,7 @@ public:
     void getpubliclink(Node* n, int del, m_time_t ets); // auxiliar method to add req
 
     // add/delete sync
-    error isnodesyncable(Node*, bool* = NULL);
-    error addsync(string*, const char*, string*, Node*, fsfp_t = 0, int = 0, void* = NULL);
+    error addsync(string*, const char*, string*, Node*, fsfp_t = 0, int = 0);
     void delsync(Sync*, bool = true);
 
     // close all open HTTP connections
@@ -528,12 +518,6 @@ public:
     // register a token device to route push notifications
     void registerPushNotification(int deviceType, const char *token = NULL);
 #endif
-
-    // get mega achievements
-    void getaccountachievements(AchievementsDetails *details);
-
-    // get mega achievements list (for advertising for unregistered users)
-    void getmegaachievements(AchievementsDetails *details);
 
     // toggle global debug flag
     bool toggledebug();
@@ -1239,9 +1223,6 @@ public:
 
     // confirm a link to change the email address
     void confirmemaillink(const char *code, const char *email, const byte *pwkey);
-
-    // achievements enabled for the account
-    bool achievements_enabled;
 
     MegaClient(MegaApp*, Waiter*, HttpIO*, FileSystemAccess*, DbAccess*, GfxProc*, const char*, const char*);
     ~MegaClient();

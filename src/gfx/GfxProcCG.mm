@@ -92,17 +92,10 @@ bool GfxProcCG::readbitmap(FileAccess* fa, string* name, int size) {
         UIImage *thumbnailImage = [[UIImage alloc] initWithCGImage:imgRef];
         CGImageRelease(imgRef);
         
-        NSError *error;
-        if ([UIImageJPEGRepresentation(thumbnailImage, 1) writeToFile:nameString.stringByDeletingPathExtension options:NSDataWritingFileProtectionNone error:&error]) {
-            dataProvider = CGDataProviderCreateWithFilename([nameString.stringByDeletingPathExtension UTF8String]);
-            if (![[NSFileManager defaultManager] removeItemAtPath:nameString.stringByDeletingPathExtension error:&error]) {
-                LOG_err << "removeItemAtPath failed with error: " << error.localizedDescription <<  "code: " << error.code << "domain: " << error.domain;
-            }
-        } else {
-            LOG_err << "writeToFile failed with error: " << error.localizedDescription << "code: " << error.code << "domain: " << error.domain;
-        }
+        [UIImageJPEGRepresentation(thumbnailImage, 1) writeToFile:nameString.stringByDeletingPathExtension atomically:YES];
         
-        
+        dataProvider = CGDataProviderCreateWithFilename([nameString.stringByDeletingPathExtension UTF8String]);
+        [[NSFileManager defaultManager] removeItemAtPath:nameString.stringByDeletingPathExtension error:nil];
     } else {
         dataProvider = CGDataProviderCreateWithFilename(name->c_str());
     }

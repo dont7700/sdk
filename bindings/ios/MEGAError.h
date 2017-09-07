@@ -44,8 +44,7 @@ typedef NS_ENUM(NSInteger, MEGAErrorType) {
     MEGAErrorTypeApiEWrite = -20,                  // file could not be written to
     MEGAErrorTypeApiERead = -21,                   // file could not be read from
     MEGAErrorTypeApiEAppKey = -22,                 // invalid or missing application key
-    MEGAErrorTypeApiESSL = -23,                    // invalid SSL key
-    MEGAErrorTypeApiEgoingOverquota = -24          // Not enough quota
+    MEGAErrorTypeApiESSL = -23                     // invalid SSL key
 };
 
 /**

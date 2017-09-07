@@ -35,10 +35,6 @@
 #include <ws2tcpip.h>
 #endif
 
-#ifdef __FreeBSD__
-#include <netinet/in.h>
-#endif
-
 namespace mega {
 
 #ifdef _WIN32

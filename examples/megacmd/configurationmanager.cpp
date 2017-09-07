@@ -52,7 +52,7 @@ std::string ConfigurationManager::getConfigFolder()
 
 void ConfigurationManager::loadConfigDir()
 {
-#ifdef _WIN32
+#ifdef _WIN32 //TODO: untested
 
    TCHAR szPath[MAX_PATH];
     if (!SUCCEEDED(GetModuleFileName(NULL, szPath , MAX_PATH)))
@@ -124,8 +124,7 @@ void ConfigurationManager::saveSession(const char*session)
 
         if (fo.is_open())
         {
-            if (session)
-                fo << session;
+            fo << session;
             fo.close();
         }
     }

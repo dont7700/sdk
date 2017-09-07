@@ -24,6 +24,7 @@
 
 #include "types.h"
 #include "node.h"
+#include "megaclient.h"
 #include "account.h"
 #include "http.h"
 
@@ -856,14 +857,6 @@ public:
 
 #endif
 
-class MEGA_API CommandGetMegaAchievements : public Command
-{
-    AchievementsDetails* details;
-public:
-    void procresult();
-
-    CommandGetMegaAchievements(MegaClient*, AchievementsDetails *details, bool registered_user = true);
-};
 
 } // namespace
 

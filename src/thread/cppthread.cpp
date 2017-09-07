@@ -17,20 +17,15 @@
  *
  * You should have received a copy of the license along with this
  * program.
- *
- * This file is also distributed under the terms of the GNU General
- * Public License, see http://www.gnu.org/copyleft/gpl.txt for details.
  */
 
+#include "mega.h"
 #include "mega/thread/cppthread.h"
-#if defined WINDOWS_PHONE || defined USE_CPPTHREAD
 
 #include <ctime>
 #include <chrono>
 
-#ifdef _WIN32
-#include "windows.h"
-#endif
+#ifdef WINDOWS_PHONE
 
 namespace mega {
 
@@ -50,12 +45,12 @@ void CppThread::join()
     thread->join();
 }
 
-unsigned long long CppThread::currentThreadId()
+uint64_t CppThread::currentThreadId()
 {
 #ifdef _WIN32
-    return (unsigned long long) GetCurrentThreadId();
+    return (uint64_t) GetCurrentThreadId();
 #else
-    return (unsigned long long) &errno;
+    return (uint64_t) &errno;
 #endif
 }
 

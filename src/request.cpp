@@ -22,7 +22,6 @@
 #include "mega/request.h"
 #include "mega/command.h"
 #include "mega/logging.h"
-#include "mega/megaclient.h"
 
 namespace mega {
 void Request::add(Command* c)
